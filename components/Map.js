@@ -41,10 +41,27 @@ export default function Map({ searchResults }) {
             offsetLeft={-20}
             offsetTop={-10}
           >
-            <p className='cursor-pointer text-2xl animate-bounce'>
+            <p
+              role='img'
+              onClick={() => setSelectedLocation(result)}
+              className='cursor-pointer text-2xl animate-bounce'
+              aria-label='push-pin'
+            >
               <FaMapPin className='text-red-400' />
             </p>
           </Marker>
+          {selectedLocation.long === result.long ? (
+            <Popup
+              onClose={() => setSelectedLocation({})}
+              closeOnClick={true}
+              latitude={result.lat}
+              longitude={result.long}
+            >
+              {result.title}
+            </Popup>
+          ) : (
+            false
+          )}
         </div>
       ))}
     </ReactMapGL>
